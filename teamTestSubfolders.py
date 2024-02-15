@@ -22,14 +22,17 @@ import shutil
 #check huge files > exfat
 
 
-def compareBysha256(file01, file02)-> bool:
-    """This function compares 2 files by the sha256 hash"""
-    with open(file01, "rb") as f01, open(file02, "rb") as f02: #you have to open the file and close it using with
-        return hashlib.sha256(f01.read()).hexdigest() == hashlib.sha256(f02.read()).hexdigest()
+def compareBysha256(filePath1, filePath2)-> bool:
+    """This function compares 2 files by the SHA - 256 hash"""
+    
+    with open(filePath1, "rb") as file1, open(filePath2, "rb") as file2: #open the files and close them using with
+        hash1 = hashlib.sha256(file1.read()).hexdigest()
+        hash2 = hashlib.sha256(file2.read()).hexdigest()
+        return hash1 == hash2
 
 
-def compare(directory1, directory2):
-    """This function compares two directories, including all files inside them (including subfolders). """
+def compareFilesAndFolders(directory1, directory2):
+    """This function compares all the files inside two directories (including subfolders). """
     for root, _, files in os.walk(directory1): #walk ALL files in the folder
         for file in files:
             originFilesPath = os.path.join(root, file)
@@ -85,9 +88,10 @@ def backupFiles(originFolder: str, destinationFolder: str, timeWait:int, logFile
 
     while True: #to make it run periodically
         try: #to raise error when there is a problem
-            compare(originFolder,destinationFolder)
+            compareFilesAndFolders(originFolder,destinationFolder)
             time.sleep(timeWait)
-        except:
+        except Exception as e:
+            logger.error(f"Backup failed: {e}")
             raise Exception("Something is not working. Please check log for more details.")
 
 if __name__ == '__main__':

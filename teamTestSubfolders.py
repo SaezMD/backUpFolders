@@ -114,9 +114,9 @@ if __name__ == '__main__':
     if not os.path.isdir(args.destination):
         os.makedirs(args.destination)
 
-    #check if logFilePath is OK
+    #check if logFile name is OK
     if not args.logFile.endswith("log") or args.logFile.endswith("txt"):
-        raise argparse.ArgumentError(None,"Logfile type is not correct! Please use '.txt' or '.log'.") 
+        raise argparse.ArgumentError(None,"Logfile type is not correct! Please use '.txt' or '.log'") 
     
     #logger in a file
     logger = logging.getLogger("backupFolders")

@@ -7,7 +7,6 @@
 * Folder paths, synchronization interval and lof file path ----> command line arguments
 * 
 """
-
 #!/usr/bin/python3
 import os
 import time

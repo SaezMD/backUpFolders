@@ -9,10 +9,12 @@
 """
 
 #!/usr/bin/python3
+import logging
+from logging.handlers import RotatingFileHandler
+
 import os
 import time
 import argparse
-import logging
 import hashlib
 import shutil
 
@@ -119,12 +121,14 @@ if __name__ == '__main__':
         raise argparse.ArgumentError(None,"Logfile type is not correct! Please use '.txt' or '.log'") 
     
     #logger in a file
-    logger = logging.getLogger("backupFolders")
+    logger = logging.getLogger("backupFolders Rotating")
     logger.setLevel(logging.INFO)
     formatter = logging.Formatter("%(asctime)s : %(levelname)s : %(name)s : %(message)s")
-    fileHandler = logging.FileHandler(args.logFile) # to send to a file -> create the file
-    fileHandler.setFormatter(formatter) # to send to a file
+    # to send to a file -> create the file y rotating mode
+    fileHandler = RotatingFileHandler(args.logFile, maxBytes=200000000, backupCount=5) #200MB limit for each file. x5 MAX
+    fileHandler.setFormatter(formatter) # to send to a file with format
     logger.addHandler(fileHandler) # to send to a file
+
 
     backupFiles(args.origin, args.destination, timeToWait, args.logFile)
 

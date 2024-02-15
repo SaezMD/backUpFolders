@@ -14,3 +14,8 @@ Extra Features:
 - Check if logger file extension is OK. (if not: raise an error).
 - Important: the backup is performance in all the files, including SUBFOLDERS.
 
+Collaboration changes (thanks to my collaborators and friends)
++ Added rotating logger.
+
+
+Hope this code can help you!

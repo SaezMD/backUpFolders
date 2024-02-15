@@ -5,7 +5,6 @@
 * Sync must be periodically
 * Logged to file and console: file creation, file copy, file removal.
 * Folder paths, synchronization interval and lof file path ----> command line arguments
-* 
 """
 
 #!/usr/bin/python3
